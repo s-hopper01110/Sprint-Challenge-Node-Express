@@ -36,6 +36,24 @@ actionRouter.get('/:id', (req, res) => {
 		});
 });
 
+//POST:
+
+actionRouter.post('/', (req, res) => {
+	const { description, project_id, notes, completed } = req.body;
+	if ( !description || !project_id || !notes || !completed ) {
+		res.status(400).json({ error: 'Please provide name of the all requirements for actions.' });
+	} else {
+		db
+			.insert({ description, project_id, notes, completed })
+			.then((actions) => {
+				res.status(201).json(actions);
+			})
+			.catch((err) => {
+				res.status(500).json({ error: 'There was an error retrieving actions ' });
+			});
+	}
+});
+
 
 
 
