@@ -18,7 +18,7 @@ server.use('/api/projects', projectRoute)
 
 
 server.get('/', (req, res) => {
-    res.send(`<h2>Node-Blog -- Success</h2>`);
+    res.send(`<h2>Sprint Challenge-Node-Express -- Success</h2>`);
 })
 
 module.exports = server; 
