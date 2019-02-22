@@ -41,7 +41,7 @@ actionRouter.get('/:id', (req, res) => {
 actionRouter.post('/', (req, res) => {
 	const { description, project_id, notes, completed } = req.body;
 	if ( !description || !project_id || !notes || !completed ) {
-		res.status(400).json({ error: 'Please provide name of the all requirements for actions.' });
+		res.status(400).json({ error: 'Please provide all requirements for the specified action.' });
 	} else {
 		db
 			.insert({ description, project_id, notes, completed })
@@ -69,6 +69,26 @@ actionRouter.delete('/:id', (req, res) => {
 			res.status(500).json({ error: 'The action could not be removed' });
 		});
 });
+
+actionRouter.put('/:id', (req, res) => {
+	const { id } = req.params;
+	const changes = req.body;
+
+	db
+		.update( id, changes )
+		.then((actionsUpdate) => {
+			if (!actionsUpdate) {
+				res.status(404).json({ success: false, message: 'The action with the specified ID does not exist.' });
+			} else if ( !changes.description || !changes.project_id || !changes.notes || !changes.completed ) {
+				return res.status(400).json({ success: false, message: 'Please provide all requirements for the specified action.' });
+			} else {
+				return res.status(200).json({ success: true, changes });
+			}
+		})
+		.catch((err) => {
+			res.status(500).json({ success: false, error: 'The action could not be modified.' });
+		});
+})
 
 
 
