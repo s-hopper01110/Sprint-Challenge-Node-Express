@@ -54,6 +54,22 @@ actionRouter.post('/', (req, res) => {
 	}
 });
 
+actionRouter.delete('/:id', (req, res) => {
+	const { id } = req.params;
+	db
+		.remove(id)
+		.then((action) => {
+			if (action) {
+				res.status(204).end();
+			} else {
+				res.status(404).json({ success: false, message: 'The action with the specified ID does not exist.' });
+			}
+		})
+		.catch((err) => {
+			res.status(500).json({ error: 'The action could not be removed' });
+		});
+});
+
 
 
 
