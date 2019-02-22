@@ -6,6 +6,6 @@
 const server = require('./server')
 
 server.listen(3001, () => {
-    console.log('\n*** Server Running on http://localhost:4000 ***\n');
+    console.log('\n*** Server Running on http://localhost:3001 ***\n');
 })
 
