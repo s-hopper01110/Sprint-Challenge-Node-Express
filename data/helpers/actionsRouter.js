@@ -28,11 +28,11 @@ actionRouter.get('/:id', (req, res) => {
 			if (actions) {
 				res.status(201).json({ success: true, actions });
 			} else {
-				res.status(404).json({ success: false, message: 'The actions with the specified ID does not exist.' });
+				res.status(404).json({ success: false, message: 'The action with the specified ID does not exist.' });
 			}
 		})
 		.catch((err) => {
-			res.status(500).json({ success: false, error: 'The actions could not be retrieved.' });
+			res.status(500).json({ success: false, error: 'The action requested could not be retrieved.' });
 		});
 });
 
@@ -54,6 +54,8 @@ actionRouter.post('/', (req, res) => {
 	}
 });
 
+//DELETE:
+
 actionRouter.delete('/:id', (req, res) => {
 	const { id } = req.params;
 	db
@@ -66,9 +68,11 @@ actionRouter.delete('/:id', (req, res) => {
 			}
 		})
 		.catch((err) => {
-			res.status(500).json({ error: 'The action could not be removed' });
+			res.status(500).json({ error: 'The specified action could not be removed' });
 		});
 });
+
+//PUT:
 
 actionRouter.put('/:id', (req, res) => {
 	const { id } = req.params;
@@ -86,7 +90,7 @@ actionRouter.put('/:id', (req, res) => {
 			}
 		})
 		.catch((err) => {
-			res.status(500).json({ success: false, error: 'The action could not be modified.' });
+			res.status(500).json({ success: false, error: 'The action requested could not be modified.' });
 		});
 })
 
